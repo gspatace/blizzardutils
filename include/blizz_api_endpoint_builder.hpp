@@ -1,8 +1,10 @@
 #pragma once
 
 #include <string>
+#include <sstream>
 
 #include "blizz_api_defines.hpp"
+#include "blizz_api_mapper.hpp"
 
 #ifdef WIN32
 #ifdef BLIZZ_API_EXPORTS
@@ -14,17 +16,39 @@
 #define mDLLIMPORTEXPORT 
 #endif
 
-class mDLLIMPORTEXPORT BlizzEndpointBuilder
+template<typename T>
+class  Builder
 {
 public:
-   BlizzEndpointBuilder();
-   //BlizzEndpointBuilder(const BlizzEndpointBuilder&) = delete;
-   //BlizzEndpointBuilder& operator=(const BlizzEndpointBuilder&) = delete;
-   //BlizzEndpointBuilder(BlizzEndpointBuilder&&) = delete;
-   //BlizzEndpointBuilder& operator=( BlizzEndpointBuilder&&) = delete;
+   static T GetBuilder() {
+      return{};
+   }
 
-   BlizzEndpointBuilder* WithCommunityArea(BLIZZARD_WOW_COMM CommunityArea);
-   BlizzEndpointBuilder* WithLocale(BLIZZARD_LOCALE Locale);
+   T& build() {
+      return static_cast<T&>(*this);
+   }
+};
+
+template<typename T>
+class  BlizzEndpointBuilder : public Builder<T>
+{
+public:
+   BlizzEndpointBuilder()
+      : mCommunityArea(BLIZZARD_WOW_COMM::BWC_EU)
+      , mLocale(BLIZZARD_LOCALE::BL_EN_GB)
+   {}
+   
+   T& WithCommunityArea(BLIZZARD_WOW_COMM CommunityArea)
+   {
+      mCommunityArea = CommunityArea;
+      return static_cast<T&>(*this);
+   }
+
+   T& WithLocale(BLIZZARD_LOCALE Locale)
+   {
+      mLocale = Locale;
+      return static_cast<T&>(*this);
+   }
 
    virtual std::string Build() = 0;
    protected:
@@ -33,19 +57,41 @@ public:
    BLIZZARD_LOCALE mLocale;
 };
 
-class mDLLIMPORTEXPORT BlizzItemEndpointBuilder: public BlizzEndpointBuilder
+class  BlizzItemEndpointBuilder: public BlizzEndpointBuilder<BlizzItemEndpointBuilder>
 {
 public:
-   BlizzItemEndpointBuilder();
-   //BlizzItemEndpointBuilder(const BlizzItemEndpointBuilder&) = delete;
-   //BlizzItemEndpointBuilder& operator=(const BlizzItemEndpointBuilder&) = delete;
-   //BlizzItemEndpointBuilder(BlizzItemEndpointBuilder&&) = delete;
-   //BlizzItemEndpointBuilder& operator=(BlizzItemEndpointBuilder&&) = delete;
+   BlizzItemEndpointBuilder()
+      : BlizzEndpointBuilder()
+      , mItemId(12345)
+   {}
 
-   BlizzItemEndpointBuilder* WithItemId(int ItemId);
+   BlizzItemEndpointBuilder& WithItemId(int ItemId)
+   {
+      if (ItemId < 0)
+         throw std::invalid_argument("Item id must be greater than 0");
 
-   virtual std::string Build() override;
-   virtual bool IsValid() override;
+      mItemId = ItemId;
+      return *this;
+   }
+
+   virtual std::string Build()
+   {
+      std::ostringstream endpointOss;
+      endpointOss << "https://";
+      endpointOss << BlizzardTermMapper::Instance().GetCommunityValue(mCommunityArea);
+      endpointOss << ".api.battle.net/wow/";
+      endpointOss << "item/";
+      endpointOss << mItemId;
+      endpointOss << "?locale=";
+      endpointOss << BlizzardTermMapper::Instance().GetLocaleValue(mLocale);
+
+      return endpointOss.str();
+   }
+
+   virtual bool IsValid() 
+   {
+      return mItemId >= 0 ? true : false;
+   }
 private:
    int mItemId;
 };

@@ -14,18 +14,39 @@
 #define mDLLIMPORTEXPORT 
 #endif
 
-class mDLLIMPORTEXPORT BlizzItemEndpointBuilder
+class mDLLIMPORTEXPORT BlizzEndpointBuilder
 {
 public:
-   BlizzItemEndpointBuilder();
-   BlizzItemEndpointBuilder& WithCommunityArea(BLIZZARD_WOW_COMM CommunityArea);
-   BlizzItemEndpointBuilder& WithLocale(BLIZZARD_LOCALE Locale);
-   BlizzItemEndpointBuilder& WithItemId(int ItemId);
+   BlizzEndpointBuilder();
+   //BlizzEndpointBuilder(const BlizzEndpointBuilder&) = delete;
+   //BlizzEndpointBuilder& operator=(const BlizzEndpointBuilder&) = delete;
+   //BlizzEndpointBuilder(BlizzEndpointBuilder&&) = delete;
+   //BlizzEndpointBuilder& operator=( BlizzEndpointBuilder&&) = delete;
 
-   std::string Build();
-private:
-   bool IsValid();
-   int mItemId;
+   BlizzEndpointBuilder* WithCommunityArea(BLIZZARD_WOW_COMM CommunityArea);
+   BlizzEndpointBuilder* WithLocale(BLIZZARD_LOCALE Locale);
+
+   virtual std::string Build() = 0;
+   protected:
+   virtual bool IsValid() = 0;
    BLIZZARD_WOW_COMM mCommunityArea;
    BLIZZARD_LOCALE mLocale;
 };
+
+class mDLLIMPORTEXPORT BlizzItemEndpointBuilder: public BlizzEndpointBuilder
+{
+public:
+   BlizzItemEndpointBuilder();
+   //BlizzItemEndpointBuilder(const BlizzItemEndpointBuilder&) = delete;
+   //BlizzItemEndpointBuilder& operator=(const BlizzItemEndpointBuilder&) = delete;
+   //BlizzItemEndpointBuilder(BlizzItemEndpointBuilder&&) = delete;
+   //BlizzItemEndpointBuilder& operator=(BlizzItemEndpointBuilder&&) = delete;
+
+   BlizzItemEndpointBuilder* WithItemId(int ItemId);
+
+   virtual std::string Build() override;
+   virtual bool IsValid() override;
+private:
+   int mItemId;
+};
+

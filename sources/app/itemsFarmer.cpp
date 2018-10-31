@@ -4,12 +4,14 @@
 
 int main(int argc, char* argv[])
 {
-   BlizzItemEndpointBuilder endpointBuilder;
+   BlizzItemEndpointBuilder * endpointBuilder = new BlizzItemEndpointBuilder();
    endpointBuilder
-      .WithCommunityArea(BLIZZARD_WOW_COMM::BWC_US)
-      .WithLocale(BLIZZARD_LOCALE::BL_DE_DE)
-      .WithItemId(72344);
-   std::cout << endpointBuilder.Build();
+      ->WithCommunityArea(BLIZZARD_WOW_COMM::BWC_US)
+      ->WithLocale(BLIZZARD_LOCALE::BL_DE_DE);
+      //->WithItemId(72344);
+
+   endpointBuilder->WithItemId(72344);
+   std::cout << endpointBuilder->Build();
 
 
    std::cout << std::endl<<"final";

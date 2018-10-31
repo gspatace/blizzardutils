@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "blizz_api_endpoint_builder.hpp"
 
 int main(int argc, char* argv[])

@@ -5,10 +5,10 @@
 BlizzardTermMapper::BlizzardTermMapper()
    :mCommunityMap
       {
-       { BLIZZARD_WOW_COMM::BWC_US, "US" },
-       { BLIZZARD_WOW_COMM::BWC_KR, "KR" },
-       { BLIZZARD_WOW_COMM::BWC_TW, "TW" },
-       { BLIZZARD_WOW_COMM::BWC_EU, "EU" } 
+       { BLIZZARD_WOW_COMM::BWC_US, "us" },
+       { BLIZZARD_WOW_COMM::BWC_KR, "kr" },
+       { BLIZZARD_WOW_COMM::BWC_TW, "tw" },
+       { BLIZZARD_WOW_COMM::BWC_EU, "eu" } 
       }
    , mLocaleMap
       {

@@ -8,7 +8,10 @@
 //pl_PL,
 //pt_PT,
 //ru_RU
+//zh_TW
+//ko_KR
 
+//TODO: Map all these
 enum class BLIZZARD_LOCALE
 {
    BL_EN_GB = 1,
@@ -18,7 +21,9 @@ enum class BLIZZARD_LOCALE
    BL_IT_IT,
    BL_PL_PL,
    BL_PT_PT,
-   BL_RU_RU
+   BL_RU_RU,
+   BL_ZH_TW,
+   BL_KO_KR
 };
 
 enum class BLIZZARD_WOW_COMM

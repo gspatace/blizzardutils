@@ -22,8 +22,9 @@ public:
    BlizzItemEndpointBuilder& WithLocale(BLIZZARD_LOCALE Locale);
    BlizzItemEndpointBuilder& WithItemId(int ItemId);
 
-   std::string BuildEndpoint();
+   std::string Build();
 private:
+   bool IsValid();
    int mItemId;
    BLIZZARD_WOW_COMM mCommunityArea;
    BLIZZARD_LOCALE mLocale;

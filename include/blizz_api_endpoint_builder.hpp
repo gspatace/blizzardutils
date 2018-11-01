@@ -5,16 +5,7 @@
 
 #include "blizz_api_defines.hpp"
 #include "blizz_api_mapper.hpp"
-
-#ifdef WIN32
-#ifdef BLIZZ_API_EXPORTS
-#define mDLLIMPORTEXPORT __declspec(dllexport)
-#else
-#define mDLLIMPORTEXPORT __declspec(dllimport)
-#endif //BLIZZ_API_EXPORTS
-#else //WIN32
-#define mDLLIMPORTEXPORT 
-#endif
+#include "term_mapper_accessor.hpp"
 
 template<typename T>
 class  Builder
@@ -22,10 +13,6 @@ class  Builder
 public:
    static T GetBuilder() {
       return{};
-   }
-
-   T& build() {
-      return static_cast<T&>(*this);
    }
 };
 
@@ -50,7 +37,7 @@ public:
       return static_cast<T&>(*this);
    }
 
-   virtual std::string Build() = 0;
+   virtual std::string BuildString() = 0;
    protected:
    virtual bool IsValid() = 0;
    BLIZZARD_WOW_COMM mCommunityArea;
@@ -74,16 +61,16 @@ public:
       return *this;
    }
 
-   virtual std::string Build()
+   virtual std::string BuildString()
    {
       std::ostringstream endpointOss;
       endpointOss << "https://";
-      endpointOss << BlizzardTermMapper::Instance().GetCommunityValue(mCommunityArea);
+      endpointOss << TermMapperAccessor::GetCommunityValue(mCommunityArea);
       endpointOss << ".api.battle.net/wow/";
       endpointOss << "item/";
       endpointOss << mItemId;
       endpointOss << "?locale=";
-      endpointOss << BlizzardTermMapper::Instance().GetLocaleValue(mLocale);
+      endpointOss << TermMapperAccessor::GetLocaleValue(mLocale);
 
       return endpointOss.str();
    }

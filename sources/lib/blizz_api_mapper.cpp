@@ -3,7 +3,7 @@
 #include "blizz_api_mapper.hpp"
 
 BlizzardTermMapper::BlizzardTermMapper()
-   :mCommunityMap
+   : mCommunityMap
       {
        { BLIZZARD_WOW_COMM::BWC_US, "us" },
        { BLIZZARD_WOW_COMM::BWC_KR, "kr" },

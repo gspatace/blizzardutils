@@ -6,7 +6,7 @@
         {
             "label": "Delete CMake Build dir",
             "type": "shell",
-            "command": "rm -rf _/builds",
+            "command": "rm -rf ./_builds",
             "presentation": {
                 "reveal": "always",
                 "focus": true,

@@ -8,6 +8,7 @@ int main(int argc, char* argv[])
       .WithCommunityArea(BLIZZARD_WOW_COMM::BWC_US)
       .WithLocale(BLIZZARD_LOCALE::BL_DE_DE)
       .WithItemId(72344)
+      .WithJsonPString("rndVal")
       .BuildString();
    std::cout << str << std::endl;
 

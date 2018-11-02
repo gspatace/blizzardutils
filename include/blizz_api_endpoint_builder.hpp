@@ -37,11 +37,37 @@ public:
       return static_cast<T&>(*this);
    }
 
-   virtual std::string BuildString() = 0;
+   T& WithJsonPString(const std::string& JsonP)
+   {
+       mJsonp = JsonP;
+       return static_cast<T&>(*this);
+   }
+
+   /*virtual*/ std::string BuildString()
+   {
+      std::ostringstream endpointOss;
+      endpointOss << "https://";
+      endpointOss << TermMapperAccessor::GetCommunityValue(mCommunityArea);
+      endpointOss << ".api.battle.net/wow/";
+      endpointOss << BuildEndpointSpecificURI();
+      endpointOss << "?locale=";
+      endpointOss << TermMapperAccessor::GetLocaleValue(mLocale);
+
+      if(mJsonp != "")
+      {
+          endpointOss<<"&jsonp=";
+          endpointOss<<mJsonp;
+      }
+
+      return endpointOss.str();
+   }
+   
    protected:
+   virtual std::string BuildEndpointSpecificURI() = 0;
    virtual bool IsValid() = 0;
    BLIZZARD_WOW_COMM mCommunityArea;
    BLIZZARD_LOCALE mLocale;
+   std::string mJsonp = "";
 };
 
 class  BlizzItemEndpointBuilder: public BlizzEndpointBuilder<BlizzItemEndpointBuilder>
@@ -61,18 +87,25 @@ public:
       return *this;
    }
 
-   virtual std::string BuildString()
-   {
-      std::ostringstream endpointOss;
-      endpointOss << "https://";
-      endpointOss << TermMapperAccessor::GetCommunityValue(mCommunityArea);
-      endpointOss << ".api.battle.net/wow/";
-      endpointOss << "item/";
-      endpointOss << mItemId;
-      endpointOss << "?locale=";
-      endpointOss << TermMapperAccessor::GetLocaleValue(mLocale);
+//    virtual std::string BuildString()
+//    {
+//       std::ostringstream endpointOss;
+//       endpointOss << "https://";
+//       endpointOss << TermMapperAccessor::GetCommunityValue(mCommunityArea);
+//       endpointOss << ".api.battle.net/wow/";
+//       endpointOss << BuildEndpointSpecificInfo();
+//       endpointOss << "?locale=";
+//       endpointOss << TermMapperAccessor::GetLocaleValue(mLocale);
 
-      return endpointOss.str();
+//       return endpointOss.str();
+//    }
+
+   virtual std::string BuildEndpointSpecificURI()
+   {
+       std::ostringstream oss;
+       oss << mEndpointSpecificUri;
+       oss << mItemId;
+       return oss.str();
    }
 
    virtual bool IsValid() 
@@ -81,5 +114,6 @@ public:
    }
 private:
    int mItemId;
+   std::string mEndpointSpecificUri = "item/";
 };
 

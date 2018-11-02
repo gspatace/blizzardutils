@@ -43,7 +43,7 @@ public:
        return static_cast<T&>(*this);
    }
 
-   /*virtual*/ std::string BuildString()
+   std::string BuildString()
    {
       std::ostringstream endpointOss;
       endpointOss << "https://";
@@ -86,19 +86,6 @@ public:
       mItemId = ItemId;
       return *this;
    }
-
-//    virtual std::string BuildString()
-//    {
-//       std::ostringstream endpointOss;
-//       endpointOss << "https://";
-//       endpointOss << TermMapperAccessor::GetCommunityValue(mCommunityArea);
-//       endpointOss << ".api.battle.net/wow/";
-//       endpointOss << BuildEndpointSpecificInfo();
-//       endpointOss << "?locale=";
-//       endpointOss << TermMapperAccessor::GetLocaleValue(mLocale);
-
-//       return endpointOss.str();
-//    }
 
    virtual std::string BuildEndpointSpecificURI()
    {

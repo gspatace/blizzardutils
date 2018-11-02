@@ -18,13 +18,6 @@
 class mDLLIMPORTEXPORT TermMapperAccessor
 {
   public:
-    static std::string GetCommunityValue(BLIZZARD_WOW_COMM CommValue)
-    {
-        return BlizzardTermMapper::Instance().GetCommunityValue(CommValue);
-    }
-
-    static std::string GetLocaleValue(BLIZZARD_LOCALE LocaleValue)
-    {
-        return BlizzardTermMapper::Instance().GetLocaleValue(LocaleValue);
-    }
+    static std::string GetCommunityValue(BLIZZARD_WOW_COMM CommValue);
+    static std::string GetLocaleValue(BLIZZARD_LOCALE LocaleValue);
 };

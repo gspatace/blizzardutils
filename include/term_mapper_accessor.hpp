@@ -10,9 +10,9 @@
 #define mDLLIMPORTEXPORT __declspec(dllexport)
 #else
 #define mDLLIMPORTEXPORT __declspec(dllimport)
-#endif //BLIZZ_API_EXPORTS
-#else //WIN32
-#define mDLLIMPORTEXPORT 
+#endif // BLIZZ_API_EXPORTS
+#else  // WIN32
+#define mDLLIMPORTEXPORT
 #endif
 
 class mDLLIMPORTEXPORT TermMapperAccessor

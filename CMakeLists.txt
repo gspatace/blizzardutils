@@ -1,5 +1,8 @@
 cmake_minimum_required (VERSION 3.12)
 
+project(blizzUtils)
+enable_testing()
+
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -8,5 +11,10 @@ SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/out")
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/out")
 SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/out")
 
-project(blizzUtils)
+SET(COMPILER_WARNINGS "/W4 /WX /EHsc")
+SET(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} ${COMPILER_WARNINGS}")
+
+
 add_subdirectory(sources)
+
+add_test( NAME ItemEndpointBuilder WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/out" COMMAND itemEndpointBuilderTestser)

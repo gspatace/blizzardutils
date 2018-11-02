@@ -2,7 +2,7 @@
 
 #include "blizz_api_endpoint_builder.hpp"
 
-int main(int argc, char* argv[])
+int main()
 {
     std::string str = BlizzItemEndpointBuilder::GetBuilder()
                           .WithCommunityArea(BLIZZARD_WOW_COMM::BWC_US)

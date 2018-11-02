@@ -2,6 +2,10 @@
     "cmake.configureOnOpen": true,
     "cmake.buildDirectory": "${workspaceRoot}/_builds",
     "cmake.useCMakeServer": false,
+    "cmake.clearOutputBeforeBuild": true,
+    "cmake.configureArgs": [
+        "-DCMAKE_GENERATOR_PLATFORM=x64"
+    ],
     "files.associations": {
         "xstring": "cpp",
         "ostream": "cpp"

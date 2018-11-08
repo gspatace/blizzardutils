@@ -4,7 +4,8 @@
     "cmake.useCMakeServer": false,
     "cmake.clearOutputBeforeBuild": true,
     "cmake.configureArgs": [
-        "-DCMAKE_GENERATOR_PLATFORM=x64"
+        "-DCMAKE_GENERATOR_PLATFORM=x64",
+        "-D3RDPARTIES_ROOT=E:/3rdparties"
     ],
     "files.associations": {
         "xstring": "cpp",

@@ -8,11 +8,7 @@
 class BlizzardTermMapper
 {
   public:
-    static BlizzardTermMapper& Instance()
-    {
-        static BlizzardTermMapper mTheInstance;
-        return mTheInstance;
-    }
+    static BlizzardTermMapper& Instance();
 
     std::string GetCommunityValue(BLIZZARD_WOW_COMM CommValue);
     std::string GetLocaleValue(BLIZZARD_LOCALE LocaleValue);

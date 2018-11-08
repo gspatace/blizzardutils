@@ -2,6 +2,12 @@
 
 #include "blizz_api_mapper.hpp"
 
+BlizzardTermMapper& BlizzardTermMapper::Instance()
+{
+    static BlizzardTermMapper mTheInstance;
+    return mTheInstance;
+}
+
 BlizzardTermMapper::BlizzardTermMapper()
     : mCommunityMap{{BLIZZARD_WOW_COMM::BWC_US, "us"},
                     {BLIZZARD_WOW_COMM::BWC_KR, "kr"},

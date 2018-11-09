@@ -15,6 +15,7 @@ int main()
     std::string str2 = BlizzItemEndpointBuilder::GetBuilder().BuildString();
     std::cout << str2 << std::endl;
 
-    std::cout << std::endl << "Successfull" << std::endl;
+    std::cout << std::endl
+              << "Successfull" << std::endl;
     return 0;
 }

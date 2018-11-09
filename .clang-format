@@ -15,6 +15,7 @@ BraceWrapping:
     BeforeElse: true
 BreakBeforeBraces: Custom
 BreakConstructorInitializersBeforeComma: true
+ColumnLimit: 0
 PointerAlignment: Left
 SortIncludes: false
 SpaceAfterTemplateKeyword: false

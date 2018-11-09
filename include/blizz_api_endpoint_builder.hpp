@@ -108,3 +108,40 @@ class BlizzItemEndpointBuilder
     int mItemId;
     std::string mEndpointSpecificUri = "item/";
 };
+
+class BlizzItemSetEndpointBuilder
+    : public BlizzEndpointBuilder<BlizzItemSetEndpointBuilder>
+{
+  public:
+    BlizzItemSetEndpointBuilder()
+        : BlizzEndpointBuilder()
+        , mItemSetId(1060)
+    {
+    }
+
+    BlizzItemSetEndpointBuilder& WithItemSetId(int ItemSetId)
+    {
+        if (ItemSetId < 0)
+            throw std::invalid_argument("Item id must be greater than 0");
+
+        mItemSetId = ItemSetId;
+        return *this;
+    }
+
+    virtual std::string BuildEndpointSpecificURI()
+    {
+        std::ostringstream oss;
+        oss << mEndpointSpecificUri;
+        oss << mItemSetId;
+        return oss.str();
+    }
+
+    virtual bool IsValid()
+    {
+        return mItemSetId >= 0 ? true : false;
+    }
+
+  private:
+    int mItemSetId;
+    std::string mEndpointSpecificUri = "item/set/";
+};

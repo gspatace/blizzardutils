@@ -1,17 +1,5 @@
 #pragma once
 
-// en_GB = 1,
-// de_DE,
-// es_ES,
-// fr_FR,
-// it_IT,
-// pl_PL,
-// pt_PT,
-// ru_RU
-// zh_TW
-// ko_KR
-
-// TODO: Map all these
 enum class BLIZZARD_LOCALE
 {
     BL_EN_GB = 1,

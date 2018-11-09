@@ -24,6 +24,7 @@ class BlizzEndpointBuilder : public Builder<T>
     BlizzEndpointBuilder()
         : mCommunityArea(BLIZZARD_WOW_COMM::BWC_EU)
         , mLocale(BLIZZARD_LOCALE::BL_EN_GB)
+        , mJsonp("")
     {
     }
 
@@ -47,6 +48,9 @@ class BlizzEndpointBuilder : public Builder<T>
 
     std::string BuildString()
     {
+        if (!IsValid())
+            throw std::domain_error("Data needed for building endpoint is invalid");
+
         std::ostringstream endpointOss;
         endpointOss << "https://";
         endpointOss << TermMapperAccessor::GetCommunityValue(mCommunityArea);
@@ -66,10 +70,14 @@ class BlizzEndpointBuilder : public Builder<T>
 
   protected:
     virtual std::string BuildEndpointSpecificURI() = 0;
-    virtual bool IsValid() = 0;
+    virtual bool IsValid()
+    {
+        return true;
+    };
+    
     BLIZZARD_WOW_COMM mCommunityArea;
     BLIZZARD_LOCALE mLocale;
-    std::string mJsonp = "";
+    std::string mJsonp;
 };
 
 class BlizzItemEndpointBuilder
@@ -79,6 +87,7 @@ class BlizzItemEndpointBuilder
     BlizzItemEndpointBuilder()
         : BlizzEndpointBuilder()
         , mItemId(12345)
+        , mEndpointSpecificUri("item/")
     {
     }
 
@@ -91,7 +100,7 @@ class BlizzItemEndpointBuilder
         return *this;
     }
 
-    virtual std::string BuildEndpointSpecificURI()
+    virtual std::string BuildEndpointSpecificURI() override
     {
         std::ostringstream oss;
         oss << mEndpointSpecificUri;
@@ -99,14 +108,9 @@ class BlizzItemEndpointBuilder
         return oss.str();
     }
 
-    virtual bool IsValid()
-    {
-        return mItemId >= 0 ? true : false;
-    }
-
   private:
     int mItemId;
-    std::string mEndpointSpecificUri = "item/";
+    std::string mEndpointSpecificUri;
 };
 
 class BlizzItemSetEndpointBuilder
@@ -116,6 +120,7 @@ class BlizzItemSetEndpointBuilder
     BlizzItemSetEndpointBuilder()
         : BlizzEndpointBuilder()
         , mItemSetId(1060)
+        , mEndpointSpecificUri("item/set/")
     {
     }
 
@@ -128,7 +133,7 @@ class BlizzItemSetEndpointBuilder
         return *this;
     }
 
-    virtual std::string BuildEndpointSpecificURI()
+    virtual std::string BuildEndpointSpecificURI() override
     {
         std::ostringstream oss;
         oss << mEndpointSpecificUri;
@@ -136,12 +141,7 @@ class BlizzItemSetEndpointBuilder
         return oss.str();
     }
 
-    virtual bool IsValid()
-    {
-        return mItemSetId >= 0 ? true : false;
-    }
-
   private:
     int mItemSetId;
-    std::string mEndpointSpecificUri = "item/set/";
+    std::string mEndpointSpecificUri;
 };

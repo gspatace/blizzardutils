@@ -4,14 +4,8 @@
 
 namespace testing
 {
-class ItemEndpointBuilderTester : public Test
-{
-  protected:
-    ItemEndpointBuilderTester(){};
-    ~ItemEndpointBuilderTester(){};
-};
 
-TEST(BuilderTest, DefaultParamsTest)
+TEST(ItemEndpointBuilderTest, DefaultParamsTest)
 {
     std::string actual = BlizzItemEndpointBuilder::GetBuilder().BuildString();
     std::string expected =
@@ -19,7 +13,7 @@ TEST(BuilderTest, DefaultParamsTest)
     EXPECT_EQ(expected, actual);
 }
 
-TEST(BuilderTest, UsCommDeLocaleRndVal)
+TEST(ItemEndpointBuilderTest, UsCommDeLocaleRndVal)
 {
     std::string actual = BlizzItemEndpointBuilder::GetBuilder()
                              .WithCommunityArea(BLIZZARD_WOW_COMM::BWC_US)

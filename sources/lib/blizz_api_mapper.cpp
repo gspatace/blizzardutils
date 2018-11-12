@@ -1,5 +1,7 @@
 #include "blizz_api_mapper.hpp"
 
+using namespace blizzard;
+
 BlizzardTermMapper& BlizzardTermMapper::Instance()
 {
     static BlizzardTermMapper mTheInstance;

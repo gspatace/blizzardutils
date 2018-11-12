@@ -15,9 +15,13 @@
 #define mDLLIMPORTEXPORT
 #endif
 
+namespace blizzard
+{
 class mDLLIMPORTEXPORT TermMapperAccessor
 {
   public:
     static std::string GetCommunityValue(BLIZZARD_WOW_COMM CommValue);
     static std::string GetLocaleValue(BLIZZARD_LOCALE LocaleValue);
 };
+
+} //namespace blizzard

@@ -2,11 +2,16 @@
 
 #include "blizz_api_endpoint_builder.hpp"
 
+using BlizzItemEndpointBuilder = blizzard::ItemEndpointBuilder;
+using BlizzItemSetEndpointBuilder = blizzard::ItemSetEndpointBuilder;
+using WOW_COMM = blizzard::BLIZZARD_WOW_COMM;
+using WOW_LOCALE = blizzard::BLIZZARD_LOCALE;
+
 int main()
 {
     std::string str = BlizzItemEndpointBuilder::GetBuilder()
-                          .WithCommunityArea(BLIZZARD_WOW_COMM::BWC_US)
-                          .WithLocale(BLIZZARD_LOCALE::BL_DE_DE)
+                          .WithCommunityArea(WOW_COMM::BWC_US)
+                          .WithLocale(WOW_LOCALE::BL_DE_DE)
                           .WithItemId(72344)
                           .WithJsonPString("rndVal")
                           .BuildString();

@@ -7,8 +7,11 @@
 #include "blizz_api_mapper.hpp"
 #include "term_mapper_accessor.hpp"
 
+namespace blizzard
+{
+
 template<typename T>
-class Builder
+class BaseBuilder
 {
   public:
     static T GetBuilder()
@@ -18,10 +21,10 @@ class Builder
 };
 
 template<typename T>
-class BlizzEndpointBuilder : public Builder<T>
+class BaseEndpointBuilder : public BaseBuilder<T>
 {
   public:
-    BlizzEndpointBuilder()
+    BaseEndpointBuilder()
         : mCommunityArea(BLIZZARD_WOW_COMM::BWC_EU)
         , mLocale(BLIZZARD_LOCALE::BL_EN_GB)
         , mJsonp("")
@@ -74,24 +77,24 @@ class BlizzEndpointBuilder : public Builder<T>
     {
         return true;
     };
-    
+
     BLIZZARD_WOW_COMM mCommunityArea;
     BLIZZARD_LOCALE mLocale;
     std::string mJsonp;
 };
 
-class BlizzItemEndpointBuilder
-    : public BlizzEndpointBuilder<BlizzItemEndpointBuilder>
+class ItemEndpointBuilder
+    : public BaseEndpointBuilder<ItemEndpointBuilder>
 {
   public:
-    BlizzItemEndpointBuilder()
-        : BlizzEndpointBuilder()
+    ItemEndpointBuilder()
+        : BaseEndpointBuilder()
         , mItemId(12345)
         , mEndpointSpecificUri("item/")
     {
     }
 
-    BlizzItemEndpointBuilder& WithItemId(int ItemId)
+    ItemEndpointBuilder& WithItemId(int ItemId)
     {
         if (ItemId < 0)
             throw std::invalid_argument("Item id must be greater than 0");
@@ -113,18 +116,18 @@ class BlizzItemEndpointBuilder
     std::string mEndpointSpecificUri;
 };
 
-class BlizzItemSetEndpointBuilder
-    : public BlizzEndpointBuilder<BlizzItemSetEndpointBuilder>
+class ItemSetEndpointBuilder
+    : public BaseEndpointBuilder<ItemSetEndpointBuilder>
 {
   public:
-    BlizzItemSetEndpointBuilder()
-        : BlizzEndpointBuilder()
+    ItemSetEndpointBuilder()
+        : BaseEndpointBuilder()
         , mItemSetId(1060)
         , mEndpointSpecificUri("item/set/")
     {
     }
 
-    BlizzItemSetEndpointBuilder& WithItemSetId(int ItemSetId)
+    ItemSetEndpointBuilder& WithItemSetId(int ItemSetId)
     {
         if (ItemSetId < 0)
             throw std::invalid_argument("Item id must be greater than 0");
@@ -145,3 +148,5 @@ class BlizzItemSetEndpointBuilder
     int mItemSetId;
     std::string mEndpointSpecificUri;
 };
+
+} //namespace blizzard

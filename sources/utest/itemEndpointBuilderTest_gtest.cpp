@@ -2,6 +2,10 @@
 
 #include <gtest/gtest.h>
 
+using BlizzItemEndpointBuilder = blizzard::ItemEndpointBuilder;
+using BlizzItemSetEndpointBuilder = blizzard::ItemSetEndpointBuilder;
+using WOW_COMM = blizzard::BLIZZARD_WOW_COMM;
+using WOW_LOCALE = blizzard::BLIZZARD_LOCALE;
 namespace testing
 {
 
@@ -16,8 +20,8 @@ TEST(ItemEndpointBuilderTest, DefaultParamsTest)
 TEST(ItemEndpointBuilderTest, UsCommDeLocaleRndVal)
 {
     std::string actual = BlizzItemEndpointBuilder::GetBuilder()
-                             .WithCommunityArea(BLIZZARD_WOW_COMM::BWC_US)
-                             .WithLocale(BLIZZARD_LOCALE::BL_DE_DE)
+                             .WithCommunityArea(WOW_COMM::BWC_US)
+                             .WithLocale(WOW_LOCALE::BL_DE_DE)
                              .WithItemId(72344)
                              .WithJsonPString("rndVal")
                              .BuildString();
@@ -38,7 +42,7 @@ TEST(ItemSetEndpointBuilderTest, EuCommItemSet)
 {
     std::string actual = BlizzItemSetEndpointBuilder::GetBuilder()
                              .WithItemSetId(1061)
-                             .WithLocale(BLIZZARD_LOCALE::BL_FR_FR)
+                             .WithLocale(WOW_LOCALE::BL_FR_FR)
                              .BuildString();
 
     std::string expected = "https://eu.api.battle.net/wow/item/set/1061?locale=fr_FR";

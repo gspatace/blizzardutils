@@ -1,5 +1,8 @@
 #pragma once
 
+namespace blizzard
+{
+
 enum class BLIZZARD_LOCALE
 {
     BL_EN_GB = 1,
@@ -21,3 +24,5 @@ enum class BLIZZARD_WOW_COMM
     BWC_TW,
     BWC_EU
 };
+
+} //namespace blizzard

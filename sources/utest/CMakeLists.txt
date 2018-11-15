@@ -5,7 +5,7 @@ link_directories("${GOOGLETEST_LIB}")
 
 add_executable(itemEndpointBuilderTest_gtest itemEndpointBuilderTest_gtest.cpp)
 
-if(${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 SET(EXTRALIBS "")
 else()
 SET(EXTRALIBS "pthread")

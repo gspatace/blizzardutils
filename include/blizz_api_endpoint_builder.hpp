@@ -94,11 +94,8 @@ class ItemEndpointBuilder
     {
     }
 
-    ItemEndpointBuilder& WithItemId(int ItemId)
+    ItemEndpointBuilder& WithItemId(unsigned int ItemId)
     {
-        if (ItemId < 0)
-            throw std::invalid_argument("Item id must be greater than 0");
-
         mItemId = ItemId;
         return *this;
     }
@@ -112,7 +109,7 @@ class ItemEndpointBuilder
     }
 
   private:
-    int mItemId;
+    unsigned int mItemId;
     std::string mEndpointSpecificUri;
 };
 
@@ -127,11 +124,8 @@ class ItemSetEndpointBuilder
     {
     }
 
-    ItemSetEndpointBuilder& WithItemSetId(int ItemSetId)
+    ItemSetEndpointBuilder& WithItemSetId(unsigned int ItemSetId)
     {
-        if (ItemSetId < 0)
-            throw std::invalid_argument("Item id must be greater than 0");
-
         mItemSetId = ItemSetId;
         return *this;
     }
@@ -145,7 +139,7 @@ class ItemSetEndpointBuilder
     }
 
   private:
-    int mItemSetId;
+    unsigned int mItemSetId;
     std::string mEndpointSpecificUri;
 };
 

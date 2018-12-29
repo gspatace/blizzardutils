@@ -28,6 +28,7 @@ class BaseEndpointBuilder : public BaseBuilder<T>
         : mCommunityArea(BLIZZARD_WOW_COMM::BWC_EU)
         , mLocale(BLIZZARD_LOCALE::BL_EN_GB)
         , mJsonp("")
+        , mApiKey("abcdefghijklmnopqrstuvwxyz")
     {
     }
 
@@ -46,6 +47,12 @@ class BaseEndpointBuilder : public BaseBuilder<T>
     T& WithJsonPString(const std::string& JsonP)
     {
         mJsonp = JsonP;
+        return static_cast<T&>(*this);
+    }
+
+    T& WithApiKey(const std::string& ApiKey)
+    {
+        mApiKey = ApiKey;
         return static_cast<T&>(*this);
     }
 
@@ -68,6 +75,9 @@ class BaseEndpointBuilder : public BaseBuilder<T>
             endpointOss << mJsonp;
         }
 
+        endpointOss << "&apikey=";
+        endpointOss << mApiKey;
+
         return endpointOss.str();
     }
 
@@ -81,6 +91,7 @@ class BaseEndpointBuilder : public BaseBuilder<T>
     BLIZZARD_WOW_COMM mCommunityArea;
     BLIZZARD_LOCALE mLocale;
     std::string mJsonp;
+    std::string mApiKey;
 };
 
 class ItemEndpointBuilder

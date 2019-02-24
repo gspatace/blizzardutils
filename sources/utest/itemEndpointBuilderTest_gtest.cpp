@@ -13,7 +13,7 @@ TEST(ItemEndpointBuilderTest, DefaultParamsTest)
 {
     std::string actual = BlizzItemEndpointBuilder::GetBuilder().BuildString();
     std::string expected =
-        "https://eu.api.battle.net/wow/item/12345?locale=en_GB&apikey=abcdefghijklmnopqrstuvwxyz";
+        "https://eu.api.battle.net/wow/item/12345?locale=en_GB&access_token=abcdefghijklmnopqrstuvwxyz";
     EXPECT_EQ(expected, actual);
 }
 
@@ -27,7 +27,7 @@ TEST(ItemEndpointBuilderTest, UsCommDeLocaleRndVal)
                              .BuildString();
 
     std::string expected =
-        "https://us.api.battle.net/wow/item/72344?locale=de_DE&jsonp=rndVal&apikey=abcdefghijklmnopqrstuvwxyz";
+        "https://us.api.battle.net/wow/item/72344?locale=de_DE&jsonp=rndVal&access_token=abcdefghijklmnopqrstuvwxyz";
     EXPECT_EQ(expected, actual);
 }
 
@@ -35,17 +35,17 @@ TEST(ItemEndpointBuilderTest, DefaultWithApiKey)
 {
     std::string actual = BlizzItemEndpointBuilder::GetBuilder()
                              .WithItemId(14423)
-                             .WithApiKey("SomeApiKeyHere")
+                             .WithAccessToken("SomeApiKeyHere")
                              .BuildString();
 
-    std::string expected = "https://eu.api.battle.net/wow/item/14423?locale=en_GB&apikey=SomeApiKeyHere";
+    std::string expected = "https://eu.api.battle.net/wow/item/14423?locale=en_GB&access_token=SomeApiKeyHere";
     EXPECT_EQ(expected, actual);
 }
 
 TEST(ItemSetEndpointBuilderTest, DefaultParamsTest)
 {
     std::string actual = BlizzItemSetEndpointBuilder::GetBuilder().BuildString();
-    std::string expected = "https://eu.api.battle.net/wow/item/set/1060?locale=en_GB&apikey=abcdefghijklmnopqrstuvwxyz";
+    std::string expected = "https://eu.api.battle.net/wow/item/set/1060?locale=en_GB&access_token=abcdefghijklmnopqrstuvwxyz";
     EXPECT_EQ(expected, actual);
 }
 
@@ -56,7 +56,7 @@ TEST(ItemSetEndpointBuilderTest, EuCommItemSet)
                              .WithLocale(WOW_LOCALE::BL_FR_FR)
                              .BuildString();
 
-    std::string expected = "https://eu.api.battle.net/wow/item/set/1061?locale=fr_FR&apikey=abcdefghijklmnopqrstuvwxyz";
+    std::string expected = "https://eu.api.battle.net/wow/item/set/1061?locale=fr_FR&access_token=abcdefghijklmnopqrstuvwxyz";
     EXPECT_EQ(expected, actual);
 }
 } // namespace testing

@@ -64,7 +64,7 @@ class BaseEndpointBuilder : public BaseBuilder<T>
         std::ostringstream endpointOss;
         endpointOss << "https://";
         endpointOss << TermMapperAccessor::GetCommunityValue(mCommunityArea);
-        endpointOss << ".api.battle.net/wow/";
+        endpointOss << ".api.blizzard.com/wow/";
         endpointOss << BuildEndpointSpecificURI();
         endpointOss << "?locale=";
         endpointOss << TermMapperAccessor::GetLocaleValue(mLocale);
